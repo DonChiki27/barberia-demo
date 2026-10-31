@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CAMBIAR: nombre y descripción del negocio (esto es lo que sale en Google) -->
+  <title>Barbería El Filo | Cortes y barba en La Paz</title>
+  <meta name="description" content="Cortes modernos, fade, barba y perfilado. Reserva tu turno por WhatsApp y no esperes.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== COLORES: cambia estos valores y cambia todo el diseño ===== */
+    :root {
+      --fondo:     #0f0f10;   /* fondo principal */
+      --tarjeta:   #1a1a1c;   /* fondo de tarjetas */
+      --borde:     #2a2a2e;
+      --texto:     #f4f4f5;
+      --suave:     #a1a1aa;   /* texto secundario */
+      --dorado:    #d4a24c;   /* color de marca */
+      --whatsapp:  #25d366;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; }
+    h1, h2, h3, .logo { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; font-weight: 400; line-height: 1; }
+    a { color: inherit; text-decoration: none; }
+    .contenedor { max-width: 1050px; margin: 0 auto; padding: 0 20px; }
+
+    /* ----- Barra superior ----- */
+    nav { position: sticky; top: 0; background: rgba(15,15,16,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--borde); z-index: 10; }
+    nav .contenedor { display: flex; justify-content: space-between; align-items: center; height: 66px; }
+    .logo { font-size: 1.9rem; }
+    .logo span { color: var(--dorado); }
+    nav ul { display: flex; gap: 26px; list-style: none; }
+    nav ul a { font-size: .9rem; color: var(--suave); text-transform: uppercase; letter-spacing: 1px; }
+    nav ul a:hover { color: var(--dorado); }
+
+    /* ----- Portada ----- */
+    .portada { padding: 100px 0 90px; position: relative; overflow: hidden; }
+    .portada::before {
+      content: ""; position: absolute; right: -120px; top: -80px; width: 480px; height: 480px;
+      border-radius: 50%; background: radial-gradient(circle, rgba(212,162,76,.25), transparent 70%);
+    }
+    .portada .linea { color: var(--dorado); text-transform: uppercase; letter-spacing: 3px; font-size: .85rem; font-weight: 600; }
+    .portada h1 { font-size: clamp(3.4rem, 11vw, 7rem); margin: 14px 0 18px; }
+    .portada h1 span { color: var(--dorado); }
+    .portada p { color: var(--suave); font-size: 1.1rem; max-width: 480px; margin-bottom: 32px; }
+    .botones { display: flex; gap: 14px; flex-wrap: wrap; }
+    .boton {
+      display: inline-flex; align-items: center; gap: 8px; padding: 15px 28px; border-radius: 6px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: .9rem; transition: transform .2s, background .2s;
+    }
+    .boton:hover { transform: translateY(-2px); }
+    .boton.lleno { background: var(--dorado); color: #111; }
+    .boton.borde { border: 1px solid var(--borde); color: var(--texto); }
+    .boton.borde:hover { border-color: var(--dorado); }
+    .datos { display: flex; gap: 40px; margin-top: 50px; flex-wrap: wrap; }
+    .datos strong { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--dorado); display: block; line-height: 1; }
+    .datos span { color: var(--suave); font-size: .85rem; }
+
+    /* ----- Secciones ----- */
+    section { padding: 80px 0; border-top: 1px solid var(--borde); }
+    .titulo-seccion { margin-bottom: 40px; }
+    .titulo-seccion .linea { color: var(--dorado); text-transform: uppercase; letter-spacing: 3px; font-size: .8rem; font-weight: 600; }
+    .titulo-seccion h2 { font-size: clamp(2.4rem, 6vw, 3.6rem); margin-top: 8px; }
+
+    /* ----- Servicios ----- */
+    .servicios { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .servicio {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 22px 24px;
+      transition: border-color .2s;
+    }
+    .servicio:hover { border-color: var(--dorado); }
+    .servicio h3 { font-size: 1.6rem; }
+    .servicio p { color: var(--suave); font-size: .9rem; }
+    .servicio .derecha { text-align: right; flex-shrink: 0; }
+    .servicio .precio { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--dorado); display: block; line-height: 1; }
+    .servicio .reservar { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--suave); border-bottom: 1px solid var(--dorado); }
+    .servicio .reservar:hover { color: var(--dorado); }
+
+    /* ----- Galería ----- */
+    .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    /* CAMBIAR: reemplaza cada <div class="foto">✂️</div> por <img src="corte1.jpg" alt="Corte fade"> */
+    .galeria .foto, .galeria img {
+      aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: 10px;
+      background: linear-gradient(145deg, #232326, #161618); display: grid; place-items: center;
+      font-size: 3rem; border: 1px solid var(--borde);
+    }
+
+    /* ----- Equipo ----- */
+    .equipo { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .barbero { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 28px; text-align: center; }
+    .barbero .avatar {
+      width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center;
+      background: var(--fondo); border: 2px solid var(--dorado); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--dorado);
+    }
+    .barbero h3 { font-size: 1.6rem; }
+    .barbero p { color: var(--suave); font-size: .9rem; }
+
+    /* ----- Horarios y ubicación ----- */
+    .visitanos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .horarios { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; padding: 28px; }
+    .horarios li { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--borde); list-style: none; }
+    .horarios li span { color: var(--suave); }
+    .horarios .direccion { margin-top: 18px; color: var(--suave); }
+    .mapa { border-radius: 10px; overflow: hidden; border: 1px solid var(--borde); }
+    .mapa iframe { width: 100%; height: 100%; min-height: 300px; border: 0; filter: grayscale(1) invert(.9) contrast(.9); }
+
+    /* ----- Llamada final ----- */
+    .final { text-align: center; }
+    .final h2 { font-size: clamp(2.6rem, 7vw, 4.4rem); margin-bottom: 14px; }
+    .final p { color: var(--suave); margin-bottom: 30px; }
+    .final .boton.lleno { background: var(--whatsapp); color: white; }
+
+    /* ----- Pie ----- */
+    footer { border-top: 1px solid var(--borde); text-align: center; padding: 28px 20px; font-size: .85rem; color: var(--suave); }
+
+    /* ----- Botón flotante de WhatsApp ----- */
+    .flotante {
+      position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--whatsapp);
+      border-radius: 50%; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.4); z-index: 20;
+    }
+    .flotante svg { width: 32px; height: 32px; fill: white; }
+
+    /* ----- Celular ----- */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .portada { padding: 70px 0 60px; }
+      section { padding: 60px 0; }
+      .datos { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== BARRA SUPERIOR ===================== -->
+  <nav>
+    <div class="contenedor">
+      <a href="#" class="logo">El <span>Filo</span></a> <!-- CAMBIAR -->
+      <ul>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#trabajos">Trabajos</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#visitanos">Visítanos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===================== PORTADA ===================== -->
+  <header class="portada">
+    <div class="contenedor">
+      <span class="linea">Barbería · La Paz</span>
+      <h1>Tu mejor corte,<br><span>sin esperar.</span></h1> <!-- CAMBIAR -->
+      <p>Fade, clásico, barba y perfilado. Reserva tu turno por WhatsApp y llega directo a la silla.</p>
+      <div class="botones">
+        <!-- CAMBIAR: número con código de país, sin + ni espacios -->
+        <a class="boton lleno" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20un%20turno" target="_blank">Reservar turno</a>
+        <a class="boton borde" href="#servicios">Ver precios</a>
+      </div>
+      <div class="datos">
+        <div><strong>+2.000</strong><span>clientes atendidos</span></div>
+        <div><strong>3</strong><span>barberos profesionales</span></div>
+        <div><strong>4.9 ★</strong><span>en Google</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== SERVICIOS ===================== -->
+  <section id="servicios">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="linea">Servicios</span>
+        <h2>Precios claros</h2>
+      </div>
+
+      <div class="servicios">
+        <!-- Para agregar un servicio, copia un bloque <div class="servicio"> completo.
+             En el link de "Reservar", cambia el nombre del servicio después de "reservar%20" -->
+        <div class="servicio">
+          <div>
+            <h3>Corte clásico</h3>
+            <p>Tijera y máquina, lavado incluido.</p>
+          </div>
+          <div class="derecha">
+            <span class="precio">Bs 40</span>
+            <a class="reservar" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20Corte%20cl%C3%A1sico" target="_blank">Reservar</a>
+          </div>
+        </div>
+
+        <div class="servicio">
+          <div>
+            <h3>Fade / Degradado</h3>
+            <p>Degradado a navaja, el más pedido.</p>
+          </div>
+          <div class="derecha">
+            <span class="precio">Bs 50</span>
+            <a class="reservar" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20Fade" target="_blank">Reservar</a>
+          </div>
+        </div>
+
+        <div class="servicio">
+          <div>
+            <h3>Barba completa</h3>
+            <p>Perfilado, toalla caliente y aceite.</p>
+          </div>
+          <div class="derecha">
+            <span class="precio">Bs 35</span>
+            <a class="reservar" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20Barba" target="_blank">Reservar</a>
+          </div>
+        </div>
+
+        <div class="servicio">
+          <div>
+            <h3>Combo corte + barba</h3>
+            <p>El servicio completo, ahorra Bs 15.</p>
+          </div>
+          <div class="derecha">
+            <span class="precio">Bs 70</span>
+            <a class="reservar" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20Combo" target="_blank">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALERÍA DE TRABAJOS ===================== -->
+  <section id="trabajos">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="linea">Trabajos</span>
+        <h2>Nuestros cortes</h2>
+      </div>
+      <div class="galeria">
+        <div class="foto">✂️</div>
+        <div class="foto">💈</div>
+        <div class="foto">🪒</div>
+        <div class="foto">✂️</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EQUIPO ===================== -->
+  <section id="equipo">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="linea">Equipo</span>
+        <h2>Manos expertas</h2>
+      </div>
+      <div class="equipo">
+        <!-- CAMBIAR: nombres reales. Las letras del círculo son las iniciales -->
+        <div class="barbero">
+          <div class="avatar">CM</div>
+          <h3>Carlos M.</h3>
+          <p>Especialista en fade · 8 años</p>
+        </div>
+        <div class="barbero">
+          <div class="avatar">JR</div>
+          <h3>Jorge R.</h3>
+          <p>Barba y perfilado · 5 años</p>
+        </div>
+        <div class="barbero">
+          <div class="avatar">LV</div>
+          <h3>Luis V.</h3>
+          <p>Cortes clásicos · 6 años</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HORARIOS Y UBICACIÓN ===================== -->
+  <section id="visitanos">
+    <div class="contenedor">
+      <div class="titulo-seccion">
+        <span class="linea">Visítanos</span>
+        <h2>Horarios y ubicación</h2>
+      </div>
+      <div class="visitanos">
+        <div class="horarios">
+          <ul>
+            <li><span>Lunes a viernes</span><strong>10:00 – 20:00</strong></li>
+            <li><span>Sábados</span><strong>9:00 – 21:00</strong></li>
+            <li><span>Domingos</span><strong>10:00 – 14:00</strong></li>
+          </ul>
+          <!-- CAMBIAR: dirección real -->
+          <p class="direccion">📍 Calle Ejemplo #456, La Paz, Bolivia</p>
+        </div>
+        <div class="mapa">
+          <!-- CAMBIAR: Google Maps → Compartir → Insertar un mapa → copia el src -->
+          <iframe src="https://maps.google.com/maps?q=La%20Paz%20Bolivia&z=14&output=embed" loading="lazy" title="Ubicación"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LLAMADA FINAL ===================== -->
+  <section class="final">
+    <div class="contenedor">
+      <h2>¿Listo para tu cambio?</h2>
+      <p>Escríbenos, elige tu hora y te esperamos.</p>
+      <a class="boton lleno" href="https://wa.me/59170000000?text=Hola%2C%20quiero%20reservar%20un%20turno" target="_blank">Reservar por WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- ===================== PIE ===================== -->
+  <footer>
+    <p>© 2026 Barbería El Filo · Página web hecha por [Tu nombre] · WhatsApp [tu número]</p> <!-- CAMBIAR -->
+  </footer>
+
+  <!-- ===================== BOTÓN FLOTANTE ===================== -->
+  <a class="flotante" href="https://wa.me/59170000000" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.1 1.3 15.2.1 12 .1 5.5.1.1 5.4.1 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.2z"/></svg>
+  </a>
+
+</body>
+</html>
